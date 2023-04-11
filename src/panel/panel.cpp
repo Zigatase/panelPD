@@ -1,5 +1,6 @@
 #include "panel.h"
 
+//
 void Panel()
 {
     const string ipAddress = "127.0.0.1";			// IP Address of the server
@@ -40,6 +41,8 @@ void Panel()
         return;
     }
 
+    cout << "\n--- Connect To Server ---\n\n";
+
     // Do-while loop to send and receive data
     char buf[4096];
     string userInput;
@@ -52,8 +55,7 @@ void Panel()
 
         if (userInput.size() > 0)		// Make sure the user has typed in something
         {
-            // Send the text
-            send(sock, userInput.c_str(), userInput.size() + 1, 0);
+            registerCommands(userInput, sock);
         }
 
     } while (userInput.size() > 0);
@@ -61,4 +63,82 @@ void Panel()
     // Gracefully close down everything
     closesocket(sock);
     WSACleanup();
+}
+
+//
+
+void registerCommands(string userInput, SOCKET sock)
+{
+    if(userInput == "-Help")
+    {
+        printf("------------------------------------------------------|\n");
+        printf("Example Commands: id + command                        |\n");
+        printf("------------------------------------------------------|\n");
+        printf("Connection Commands         |   -CCommand             |\n");
+        printf("User Interface Commands     |   -UICommands           |\n");
+        printf("System Commands             |   -SCommand             |\n");
+        printf("File Commands               |   -FCommand             |\n");
+        printf("------------------------------------------------------|\n");
+    }
+    else if(userInput == "-CCommand")
+    {
+        printf("------------------------------------------------------|\n");
+        printf("Example Commands: id + command                        |\n");
+        printf("------------------------------------------------------|\n");
+        printf("(Connection Commands)                                 |\n");
+        printf("                                                      |\n");
+        printf("[clients]       |  View Connected Clients             |\n");
+        printf("[connect <id>]  |   Connect to Client                 |\n");
+        printf("[close <id>]    |   Terminate Connection              |\n");
+        printf("[delete <id>]   |   Kill Connection & Delete Program  |\n");
+        printf("[closeall]      |   Terminates All Connections        |\n");
+        printf("------------------------------------------------------|\n");
+    }
+    else if(userInput == "-UICommands")
+    {
+        printf("------------------------------------------------------|\n");
+        printf("Example Commands: id + command                        |\n");
+        printf("------------------------------------------------------|\n");
+        printf("(User Interface Command)                              |\n");
+        printf("                                                      |\n");
+        printf("[clients]       |  View Connected Clients             |\n");
+        printf("[connect <id>]  |   Connect to Client                 |\n");
+        printf("[close <id>]    |   Terminate Connection              |\n");
+        printf("[delete <id>]   |   Kill Connection & Delete Program  |\n");
+        printf("[closeall]      |   Terminates All Connections        |\n");
+        printf("------------------------------------------------------|\n");
+    }
+    else if(userInput == "-SCommand")
+    {
+        printf("------------------------------------------------------|\n");
+        printf("Example Commands: id + command                        |\n");
+        printf("------------------------------------------------------|\n");
+        printf("(System Commands)                                     |\n");
+        printf("                                                      |\n");
+        printf("[clients]       |  View Connected Clients             |\n");
+        printf("[connect <id>]  |   Connect to Client                 |\n");
+        printf("[close <id>]    |   Terminate Connection              |\n");
+        printf("[delete <id>]   |   Kill Connection & Delete Program  |\n");
+        printf("[closeall]      |   Terminates All Connections        |\n");
+        printf("------------------------------------------------------|\n");
+    }
+    else if(userInput == "-FCommand")
+    {
+        printf("------------------------------------------------------|\n");
+        printf("Example Commands: id + command                        |\n");
+        printf("------------------------------------------------------|\n");
+        printf("(File Commands)                                       |\n");
+        printf("                                                      |\n");
+        printf("[clients]       |  View Connected Clients             |\n");
+        printf("[connect <id>]  |   Connect to Client                 |\n");
+        printf("[close <id>]    |   Terminate Connection              |\n");
+        printf("[delete <id>]   |   Kill Connection & Delete Program  |\n");
+        printf("[closeall]      |   Terminates All Connections        |\n");
+        printf("------------------------------------------------------|\n");
+    }
+    else
+    {
+        // Send the command
+        send(sock, userInput.c_str(), userInput.size() + 1, 0);
+    }
 }

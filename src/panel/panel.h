@@ -14,3 +14,4 @@
 using namespace std;
 
 void Panel();
+void registerCommands(string userInput, SOCKET sock);
