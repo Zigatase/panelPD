@@ -61,6 +61,7 @@ void Panel()
         string command = string(buf, 0 , bytesReceived);
 
         cout << command << endl;
+
         // Prompt the user for some text
         cout << "Command -> ";
         getline(cin, userInput);

@@ -1,8 +1,6 @@
 #ifndef PANELPD_PANEL_H
 #define PANELPD_PANEL_H
 
-#endif //PANELPD_PANEL_H
-
 ///////////////////////////////
 
 #include <iostream>
@@ -15,3 +13,5 @@ using namespace std;
 
 void Panel();
 void registerCommands(string userInput, SOCKET sock);
+
+#endif //PANELPD_PANEL_H
